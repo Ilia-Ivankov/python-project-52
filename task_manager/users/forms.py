@@ -1,0 +1,82 @@
+from django import forms
+from django.core.exceptions import ValidationError
+from django.contrib.auth.forms import UserCreationForm
+from django.utils.translation import gettext_lazy as _
+from .models import User
+import re
+
+
+class UserRegisterForm(UserCreationForm):
+    password1 = forms.CharField(
+        label=_("Password"),
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control", "placeholder": _("Password")}
+        ),
+        help_text=_("Password must contain at least 3 characters"),
+    )
+
+    password2 = forms.CharField(
+        label=_("Password confirmation"),
+        widget=forms.PasswordInput(
+            attrs={"class": "form-control", "placeholder": _("Password confirmation")}
+        ),
+        help_text=_("Enter the same password as before, for verification."),
+    )
+
+    class Meta:
+        model = User
+        fields = ["first_name", "last_name", "username", "password1", "password2"]
+        labels = {
+            "first_name": _("First name"),
+            "last_name": _("Last name"),
+            "username": _("Username"),
+        }
+        widgets = {
+            "first_name": forms.TextInput(
+                attrs={"class": "form-control", "placeholder": _("First name")}
+            ),
+            "last_name": forms.TextInput(
+                attrs={"class": "form-control", "placeholder": _("Last name")}
+            ),
+            "username": forms.TextInput(
+                attrs={"class": "form-control", "placeholder": _("Username")}
+            ),
+        }
+        help_texts = {
+            "username": _(
+                "Required field. No more than 150 symbols. "
+                "Only letters, digits and symbols @/./+/-/_."
+            )
+        }
+
+    def clean_password1(self):
+        password1 = self.cleaned_data.get("password1")
+        if len(password1) < 3:
+            raise ValidationError(
+                _(
+                    "The entered password is too short."
+                    " It must contain at least 3 characters."
+                )
+            )
+        return password1
+
+    def clean_password2(self):
+        password1 = self.cleaned_data.get("password1")
+        password2 = self.cleaned_data.get("password2")
+        if password1 != password2:
+            raise ValidationError(_("Passwords didn't match."))
+        return password2
+
+    def clean_username(self):
+        username = self.cleaned_data.get("username")
+        allowed_chars = re.compile(r"^[\w.@+-]+\Z")
+        if not allowed_chars.match(username):
+            raise ValidationError(
+                _(
+                    "Enter the correct username."
+                    " It can contain only letters, numbers, and signs @/./+/-/_"
+                )
+            )
+        if User.objects.exclude(pk=self.instance.pk).filter(username=username).exists():
+            raise ValidationError(_("This username already exists"))
+        return username

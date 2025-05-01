@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% load i18n %}
+{% block content %}
+<form action="{{ form_action }}" method="post">
+    {% csrf_token %}
+    <h1>{{ text }}</h1>
+    <p>{{ delete_warning }}</p>
+    <input class="btn btn-lg btn-primary" type="submit" value="{% trans 'Yes, delete' %}">
+</form>
+{% endblock %}
