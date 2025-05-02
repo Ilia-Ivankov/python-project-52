@@ -42,7 +42,9 @@ class UserTest(TestCase):
         response = self.client.get(response.url)
         messages = list(response.context["messages"])
         self.assertEqual(len(messages), 1)
-        self.assertEqual(str(messages[0]), "Пользователь успешно зарегистрирован")
+        self.assertEqual(
+            str(messages[0]),
+            "Пользователь успешно зарегистрирован")
 
     def test_user_update_not_authenticated(self):
         update_url = reverse("user_update", kwargs={"pk": self.user.id})
@@ -56,19 +58,22 @@ class UserTest(TestCase):
         self.client.login(username=self.user.username, password="password123")
 
         # Обновление пользователя
-        response = self.client.post(update_url, {
-            'username': 'bib',
-            'first_name': 'test',
-            'last_name': 'test',
-            'password1': 123,
-            'password2': 123
-        })
+        response = self.client.post(
+            update_url,
+            {
+                "username": "bib",
+                "first_name": "test",
+                "last_name": "test",
+                "password1": 123,
+                "password2": 123,
+            },
+        )
         response = self.client.get(list_url)
         self.assertContains(response, "bib")
         self.assertNotContains(response, "TestUser")
 
     def test_user_delete_authenticated(self):
-        delete_url = reverse('user_delete', kwargs={'pk': self.user.id})
+        delete_url = reverse("user_delete", kwargs={"pk": self.user.id})
         list_url = reverse("users")
         self.client.login(username=self.user.username, password="password123")
         response = self.client.get(list_url)
@@ -79,7 +84,7 @@ class UserTest(TestCase):
         self.assertNotContains(response, "TestUser")
 
     def test_user_delete_not_authenticated(self):
-        delete_url = reverse('user_delete', kwargs={'pk': self.user.id})
+        delete_url = reverse("user_delete", kwargs={"pk": self.user.id})
         response = self.client.get(delete_url)
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse("login"))

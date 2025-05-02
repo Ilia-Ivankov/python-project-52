@@ -18,14 +18,18 @@ class UserRegisterForm(UserCreationForm):
     password2 = forms.CharField(
         label=_("Password confirmation"),
         widget=forms.PasswordInput(
-            attrs={"class": "form-control", "placeholder": _("Password confirmation")}
+            attrs={
+                "class": "form-control",
+                "placeholder": _("Password confirmation")}
         ),
         help_text=_("Enter the same password as before, for verification."),
     )
 
     class Meta:
         model = User
-        fields = ["first_name", "last_name", "username", "password1", "password2"]
+        fields = [
+            "first_name",
+            "last_name", "username", "password1", "password2"]
         labels = {
             "first_name": _("First name"),
             "last_name": _("Last name"),
@@ -74,9 +78,12 @@ class UserRegisterForm(UserCreationForm):
             raise ValidationError(
                 _(
                     "Enter the correct username."
-                    " It can contain only letters, numbers, and signs @/./+/-/_"
+                    " It can contain only letters, "
+                    "numbers, and signs @/./+/-/_"
                 )
             )
-        if User.objects.exclude(pk=self.instance.pk).filter(username=username).exists():
+        if (User.objects.exclude(pk=self.instance.pk)
+                .filter(username=username)
+                .exists()):
             raise ValidationError(_("This username already exists"))
         return username

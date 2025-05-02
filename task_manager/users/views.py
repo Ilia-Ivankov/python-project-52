@@ -22,10 +22,13 @@ class UsersCreateView(CreateView):
     model = User
     form_class = UserRegisterForm
     template_name = "general_form.html"
-    success_url = "/login/"
+    success_url = reverse_lazy("login")
 
     def form_valid(self, form) -> HttpResponse:
-        messages.success(self.request, _("The user has been successfully registered"))
+        messages.success(
+            self.request,
+            _("The user has been successfully registered")
+        )
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:
@@ -50,9 +53,14 @@ class UsersUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
     def handle_no_permission(self):
         if not self.request.user.is_authenticated:
-            messages.error(self.request, _("You are not logged in! Please log in."))
+            messages.error(
+                self.request,
+                _("You are not logged in! Please log in."))
             return redirect(reverse_lazy("login"))
-        messages.error(self.request, _("You do not have permission to edit this user."))
+        messages.error(
+            self.request,
+            _("You do not have permission to edit this user.")
+        )
         return redirect(self.success_url)
 
     def get_context_data(self, **kwargs):
@@ -70,7 +78,8 @@ class UsersUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         messages.error(
             self.request,
             _(
-                "There was an error with your submission. Please correct the errors below."
+                "There was an error with your submission. "
+                "Please correct the errors below."
             ),
         )
         return super().form_invalid(form)
@@ -91,11 +100,14 @@ class UserDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def handle_no_permission(self):
         if not self.request.user.is_authenticated:
-            messages.error(self.request, _("You are not logged in! Please log in."))
+            messages.error(
+                self.request,
+                _("You are not logged in! Please log in."))
             return redirect(reverse_lazy("login"))
         if self.request.user != self.get_object():
             messages.error(
-                self.request, _("You do not have permission to delete this user.")
+                self.request,
+                _("You do not have permission to delete this user.")
             )
             return redirect(reverse_lazy("users"))
         return super().handle_no_permission()

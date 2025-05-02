@@ -2,10 +2,26 @@
 {% load django_bootstrap5 %}
 {% load i18n %}
 {% block content %}
-<form action="{{ form_action }}" method="post">
-    {% csrf_token %}
-    <h1>{{ text }}</h1>
-    <p>{{ delete_warning }}</p>
-    <input class="btn btn-lg btn-primary" type="submit" value="{% trans 'Yes, delete' %}">
-</form>
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-lg border-0 rounded-lg">
+            <div class="card-header bg-danger bg-gradient text-white">
+                <h3 class="text-center my-2">{{ text }}</h3>
+            </div>
+            <div class="card-body p-4">
+                <form action="{{ form_action }}" method="post">
+                    {% csrf_token %}
+                    <div class="alert alert-warning" role="alert">
+                        {{ delete_warning }}
+                    </div>
+                    <div class="d-grid gap-2 mt-4">
+                        <button class="btn btn-danger btn-lg" type="submit">
+                            {% trans 'Yes, delete' %}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

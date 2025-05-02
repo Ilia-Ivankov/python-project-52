@@ -18,6 +18,9 @@ class UserLoginForm(AuthenticationForm):
     )
 
     error_messages = {
-        "invalid_login": _("Incorrect username or password. Check the character case."),
+        "invalid_login": _(
+            "Incorrect username or password. "
+            "Check the character case."
+        ),
         "inactive": _("The account has been deactivated."),
     }
