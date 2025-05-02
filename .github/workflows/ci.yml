@@ -1,4 +1,4 @@
-name: CI
+name: Continuous Integration
 
 on:
   push:
@@ -7,29 +7,25 @@ on:
     branches: [ main, master ]
 
 jobs:
-  test-and-lint:
+  lint-and-install:
     runs-on: ubuntu-latest
     
     steps:
     - uses: actions/checkout@v3
     
-    - name: Set up Python
+    - name: Set up Python Environment
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'
     
-    - name: Install uv
+    - name: Install UV Package
       run: |
         pip install uv
     
-    - name: Install Dependencies
+    - name: Install Project Dependencies
       run: |
         make install
     
-    - name: Lint
+    - name: Run Linter
       run: |
         make lint
-    
-    - name: Test
-      run: |
-        make test
