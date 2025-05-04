@@ -10,6 +10,6 @@ class StatusForm(forms.ModelForm):
         labels = {"name": _("Name")}
         widgets = {
             "name": forms.TextInput(
-                attrs={"class": "form-control", "placeholder": _("Name")}
+                attrs={"placeholder": _("Name")}
             )
         }

@@ -2,7 +2,6 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.views.generic import (
-    ListView,
     CreateView,
     UpdateView,
     DeleteView,
@@ -13,13 +12,14 @@ from django.utils.translation import gettext_lazy as _
 from .models import Task
 from .forms import TaskForm
 from task_manager.mixins import CustomLoginRequiredMixin
+from django_filters.views import FilterView
+from .forms import TaskFilter
 
-
-class TaskListView(CustomLoginRequiredMixin, ListView):
+class TaskListView(CustomLoginRequiredMixin, FilterView):
     model = Task
     template_name = "tasks/index.html"
     context_object_name = "tasks"
-
+    filterset_class = TaskFilter
 
 class TaskCreateView(CustomLoginRequiredMixin, CreateView):
     model = Task
@@ -97,9 +97,12 @@ class TaskDetailView(CustomLoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['id'] = self.get_object().id
+        context["labels"] = self.get_object().labels.all()
         context["status"] = self.get_object().status
         context["owner"] = self.get_object().owner
         context["executor"] = self.get_object().executor
         context["created_at"] = self.get_object().created_at
         context["description"] = self.get_object().description
         return context
+        

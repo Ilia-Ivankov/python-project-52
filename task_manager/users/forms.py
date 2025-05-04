@@ -10,7 +10,7 @@ class UserRegisterForm(UserCreationForm):
     password1 = forms.CharField(
         label=_("Password"),
         widget=forms.PasswordInput(
-            attrs={"class": "form-control", "placeholder": _("Password")}
+            attrs={"placeholder": _("Password")}
         ),
         help_text=_("Password must contain at least 3 characters"),
     )
@@ -19,7 +19,6 @@ class UserRegisterForm(UserCreationForm):
         label=_("Password confirmation"),
         widget=forms.PasswordInput(
             attrs={
-                "class": "form-control",
                 "placeholder": _("Password confirmation")}
         ),
         help_text=_("Enter the same password as before, for verification."),
@@ -37,13 +36,13 @@ class UserRegisterForm(UserCreationForm):
         }
         widgets = {
             "first_name": forms.TextInput(
-                attrs={"class": "form-control", "placeholder": _("First name")}
+                attrs={"placeholder": _("First name")}
             ),
             "last_name": forms.TextInput(
-                attrs={"class": "form-control", "placeholder": _("Last name")}
+                attrs={"placeholder": _("Last name")}
             ),
             "username": forms.TextInput(
-                attrs={"class": "form-control", "placeholder": _("Username")}
+                attrs={"placeholder": _("Username")}
             ),
         }
         help_texts = {

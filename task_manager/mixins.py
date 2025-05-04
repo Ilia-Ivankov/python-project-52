@@ -11,7 +11,8 @@ class CustomLoginRequiredMixin(LoginRequiredMixin):
     redirect_field_name = None
 
     def handle_no_permission(self):
-        messages.error(self.request, self.permission_denied_message)
+        if not self.request.user.is_authenticated:
+            messages.error(self.request, self.permission_denied_message)
         return super().handle_no_permission()
 
 
@@ -20,9 +21,6 @@ class UserOwnershipMixin(UserPassesTestMixin):
 
     def handle_no_permission(self):
         if not self.request.user.is_authenticated:
-            messages.error(
-                self.request,
-                _("You are not logged in! Please log in."))
             return redirect(reverse_lazy("login"))
 
         messages.error(self.request, self.permission_message)
@@ -33,6 +31,8 @@ class UserEditPermissionMixin(UserOwnershipMixin):
     permission_message = _("You do not have permission to edit this user.")
 
     def test_func(self):
+        if not self.request.user.is_authenticated:
+            return False
         user = self.get_object()
         return self.request.user == user
 
@@ -45,3 +45,10 @@ class UserDeletePermissionMixin(UserOwnershipMixin):
         if not self.request.user.is_authenticated:
             return False
         return self.request.user == user
+
+    def handle_no_permission(self):
+        if not self.request.user.is_authenticated:
+            messages.error(self.request, _("You are not logged in! Please log in"))
+        else:
+            messages.error(self.request, self.permission_message)
+        return redirect(self.success_url)

@@ -1,7 +1,10 @@
 from django import forms
+from django.contrib.auth import get_user_model
+
+from task_manager.labels.models import Label
 from .models import Task
 from django.utils.translation import gettext_lazy as _
-
+import django_filters
 
 class TaskForm(forms.ModelForm):
     class Meta:
@@ -16,18 +19,42 @@ class TaskForm(forms.ModelForm):
         }
         widgets = {
             "name": forms.TextInput(
-                attrs={"class": "form-control", "placeholder": _("Name")}
+                attrs={"placeholder": _("Name")}
             ),
             "description": forms.Textarea(
-                attrs={"class": "form-control", "placeholder": _("Description")}
+                attrs={"placeholder": _("Description")}
             ),
             "status": forms.Select(
-                attrs={"class": "form-select", "placeholder": _("Status")}
+                attrs={"placeholder": _("Status")}
             ),
             "executor": forms.Select(
-                attrs={"class": "form-select", "placeholder": _("Executor")}
+                attrs={"placeholder": _("Executor")}
             ),
             "labels": forms.SelectMultiple(
-                attrs={"class": "form-select", "placeholder": _("Labels")}
+                attrs={"placeholder": _("Labels")}
             ),
         }
+
+class TaskFilter(django_filters.FilterSet):
+    labels = django_filters.ModelChoiceFilter(
+        queryset=Label.objects.all(),
+        label=_('Labels'),
+        required=False)
+    self_tasks = django_filters.BooleanFilter(
+        field_name='owner',
+        method='filter_self_tasks',
+        label=_('Only my tasks'),
+        widget=forms.CheckboxInput,
+    )
+
+    class Meta:
+        model = Task
+        fields = ["status", "executor", "labels", "self_tasks"]
+
+    def filter_self_tasks(self, queryset, name, value):
+        if value:
+            return queryset.filter(owner=self.request.user)
+        return queryset
+
+
+
