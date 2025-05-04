@@ -1,10 +1,9 @@
 from django import forms
-from django.contrib.auth import get_user_model
-
+import django_filters
 from task_manager.labels.models import Label
 from .models import Task
 from django.utils.translation import gettext_lazy as _
-import django_filters
+
 
 class TaskForm(forms.ModelForm):
     class Meta:
@@ -35,6 +34,7 @@ class TaskForm(forms.ModelForm):
             ),
         }
 
+
 class TaskFilter(django_filters.FilterSet):
     labels = django_filters.ModelChoiceFilter(
         queryset=Label.objects.all(),
@@ -55,6 +55,3 @@ class TaskFilter(django_filters.FilterSet):
         if value:
             return queryset.filter(owner=self.request.user)
         return queryset
-
-
-

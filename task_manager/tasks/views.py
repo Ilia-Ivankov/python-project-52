@@ -15,11 +15,13 @@ from task_manager.mixins import CustomLoginRequiredMixin
 from django_filters.views import FilterView
 from .forms import TaskFilter
 
+
 class TaskListView(CustomLoginRequiredMixin, FilterView):
     model = Task
     template_name = "tasks/index.html"
     context_object_name = "tasks"
     filterset_class = TaskFilter
+
 
 class TaskCreateView(CustomLoginRequiredMixin, CreateView):
     model = Task
@@ -105,4 +107,3 @@ class TaskDetailView(CustomLoginRequiredMixin, DetailView):
         context["created_at"] = self.get_object().created_at
         context["description"] = self.get_object().description
         return context
-        

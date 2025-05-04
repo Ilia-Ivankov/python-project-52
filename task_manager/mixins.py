@@ -48,7 +48,9 @@ class UserDeletePermissionMixin(UserOwnershipMixin):
 
     def handle_no_permission(self):
         if not self.request.user.is_authenticated:
-            messages.error(self.request, _("You are not logged in! Please log in"))
+            messages.error(
+                self.request,
+                _("You are not logged in! Please log in"))
         else:
             messages.error(self.request, self.permission_message)
         return redirect(self.success_url)
