@@ -67,7 +67,9 @@ class TaskDeleteView(CustomLoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def handle_no_permission(self):
         if not self.test_func():
-            messages.error(self.request, _("A task can only be deleted by its author."))
+            messages.error(
+                self.request,
+                _("A task can only be deleted by its author."))
             return redirect(self.success_url)
         messages.error(self.request, self.permission_denied_message)
         return super().handle_no_permission()
@@ -76,7 +78,11 @@ class TaskDeleteView(CustomLoginRequiredMixin, UserPassesTestMixin, DeleteView):
         context = super().get_context_data(**kwargs)
         context["form_action"] = self.request.path
         context["text"] = _("Delete task")
-        context["delete_warning"] = _("Are you sure you want to delete") + " " + self.get_object().name + "?"
+        context["delete_warning"] = (
+            _("Are you sure you want to delete")
+            + " "
+            + self.get_object().name + "?"
+        )
         return context
 
     def delete(self, request, *args, **kwargs):

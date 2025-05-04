@@ -10,6 +10,7 @@ from django.db import models
 from task_manager.mixins import CustomLoginRequiredMixin
 from django.http import HttpResponse
 
+
 class StatusesIndexView(CustomLoginRequiredMixin, ListView):
     model = Status
     template_name = "statuses/index.html"
@@ -61,7 +62,9 @@ class StatusesDeleteView(CustomLoginRequiredMixin, DeleteView):
         context = super().get_context_data(**kwargs)
         context["form_action"] = self.request.path
         context["text"] = _("Delete status")
-        context["delete_warning"] = _("Are you sure you want to delete") + self.get_object().name + "?"        
+        context["delete_warning"] = (
+            _("Are you sure you want to delete") + self.get_object().name + "?"
+        )
         return context
 
     def post(self, request, *args, **kwargs):

@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
+
 class UserTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(
@@ -92,7 +93,7 @@ class UserTest(TestCase):
         self.client.login(username="SecondUser", password="password456")
         response = self.client.get(self.update_url)
         self.assertEqual(response.status_code, 302)
-        
+
         response = self.client.post(
             self.update_url,
             {
@@ -104,13 +105,13 @@ class UserTest(TestCase):
             },
         )
         self.assertEqual(response.status_code, 302)
-        
+
         self.user.refresh_from_db()
         self.assertEqual(self.user.username, "TestUser")
 
     def test_user_update_authenticated(self):
         self.client.login(username="TestUser", password="password123")
-        
+
         response = self.client.post(
             self.update_url,
             {
@@ -123,16 +124,18 @@ class UserTest(TestCase):
         )
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, self.users_url)
-        
+
         self.user.refresh_from_db()
         self.assertEqual(self.user.username, "UpdatedUser")
         self.assertEqual(self.user.first_name, "Updated")
         self.assertEqual(self.user.last_name, "Name")
-        
+
         self.client.logout()
-        login_success = self.client.login(username="UpdatedUser", password="newpassword123")
+        login_success = self.client.login(
+            username="UpdatedUser",
+            password="newpassword123")
         self.assertTrue(login_success)
-        
+
         response = self.client.get(self.users_url)
         self.assertContains(response, "UpdatedUser")
         self.assertNotContains(response, "TestUser")
@@ -141,29 +144,29 @@ class UserTest(TestCase):
         response = self.client.get(self.delete_url)
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, f"{self.login_url}")
-        
+
         self.assertTrue(User.objects.filter(id=self.user.id).exists())
 
     def test_user_delete_different_user(self):
         self.client.login(username="SecondUser", password="password456")
         response = self.client.get(self.delete_url)
         self.assertEqual(response.status_code, 302)
-        
+
         response = self.client.post(self.delete_url)
         self.assertEqual(response.status_code, 302)
-        
+
         self.assertTrue(User.objects.filter(id=self.user.id).exists())
 
     def test_user_delete_authenticated(self):
         self.client.login(username="TestUser", password="password123")
-        
+
         response = self.client.get(self.users_url)
         self.assertContains(response, "TestUser")
-        
+
         response = self.client.post(self.delete_url)
         self.assertRedirects(response, self.users_url)
-        
+
         self.assertFalse(User.objects.filter(id=self.user.id).exists())
-        
+
         response = self.client.get(self.users_url)
         self.assertNotContains(response, "TestUser")

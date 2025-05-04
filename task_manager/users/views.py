@@ -30,7 +30,9 @@ class UsersCreateView(CreateView):
     success_url = reverse_lazy("login")
 
     def form_valid(self, form) -> HttpResponse:
-        messages.success(self.request, _("The user has been successfully registered"))
+        messages.success(
+            self.request,
+            _("The user has been successfully registered"))
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs) -> dict[str, Any]:
@@ -41,7 +43,11 @@ class UsersCreateView(CreateView):
         return context
 
 
-class UsersUpdateView(CustomLoginRequiredMixin, UserEditPermissionMixin, UpdateView):
+class UsersUpdateView(
+    CustomLoginRequiredMixin,
+    UserEditPermissionMixin,
+    UpdateView
+):
     model = User
     form_class = UserRegisterForm
     template_name = "general_form.html"
@@ -69,12 +75,16 @@ class UsersUpdateView(CustomLoginRequiredMixin, UserEditPermissionMixin, UpdateV
         return super().form_invalid(form)
 
 
-class UserDeleteView(CustomLoginRequiredMixin, UserDeletePermissionMixin, DeleteView):
+class UserDeleteView(
+    CustomLoginRequiredMixin,
+    UserDeletePermissionMixin,
+    DeleteView
+):
     model = User
     template_name = "general_delete_form.html"
     success_url = reverse_lazy("users")
 
-    def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
+    def post(self, request: HttpRequest, *args: str, **kwargs: Any):
         try:
             response = super().post(request, *args, **kwargs)
             messages.success(request, _("User successfully deleted"))
