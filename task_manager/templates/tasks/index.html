@@ -24,7 +24,7 @@
             <td>{{ task.status.name }}</td>
             <td>{{ task.owner.username }}</td>
             <td>{{ task.executor.username }}</td>
-            <td>{{ task.created_at }}</td>
+            <td>{{ task.created_at|date:"Y-m-d H:i" }}</td>
             <td>
                 <a href="{% url 'task_update' task.id %}" class="btn btn-primary">{% trans "Update" %}</a>
                 <a href="{% url 'task_delete' task.id %}" class="btn btn-danger">{% trans "Delete" %}</a>

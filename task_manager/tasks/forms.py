@@ -6,12 +6,13 @@ from django.utils.translation import gettext_lazy as _
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ["name", "description", "status", "executor"]
+        fields = ["name", "description", "status", "executor", "labels"]
         labels = {
             "name": _("Name"),
             "description": _("Description"),
             "status": _("Status"),
             "executor": _("Executor"),
+            "labels": _("Labels"),
         }
         widgets = {
             "name": forms.TextInput(
@@ -25,5 +26,8 @@ class TaskForm(forms.ModelForm):
             ),
             "executor": forms.Select(
                 attrs={"class": "form-select", "placeholder": _("Executor")}
+            ),
+            "labels": forms.SelectMultiple(
+                attrs={"class": "form-select", "placeholder": _("Labels")}
             ),
         }

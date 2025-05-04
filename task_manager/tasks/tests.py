@@ -4,7 +4,7 @@ from django.urls import reverse
 
 from .models import Task
 from task_manager.statuses.models import Status
-
+from task_manager.labels.models import Label
 User = get_user_model()
 
 
@@ -28,6 +28,9 @@ class TaskModelTests(TestCase):
 
         self.status2 = Status.objects.create(name="In Progress")
 
+        self.label = Label.objects.create(name="Test Label")
+        self.label2 = Label.objects.create(name="Second Label")
+
         self.task = Task.objects.create(
             name="Test Task",
             description="Test Description",
@@ -35,6 +38,8 @@ class TaskModelTests(TestCase):
             owner=self.user,
             executor=self.user,
         )
+
+        self.task.labels.add(self.label, self.label2)
 
         self.tasks_url = reverse("tasks_index")
         self.task_detail_url = reverse(
@@ -78,6 +83,8 @@ class TaskModelTests(TestCase):
         self.assertContains(response, "Test Task")
         self.assertContains(response, "Test Description")
         self.assertContains(response, "To Do")
+        self.assertContains(response, "Test Label")
+        self.assertContains(response, "Second Label")
 
         task = response.context["task"]
         self.assertEqual(task.id, self.task.id)
@@ -85,6 +92,7 @@ class TaskModelTests(TestCase):
         self.assertEqual(task.status, self.status)
         self.assertEqual(task.owner, self.user)
         self.assertEqual(task.executor, self.user)
+        self.assertEqual(list(task.labels.all()), [self.label, self.label2])
 
     def test_task_create_view(self):
         response = self.client.get(self.task_create_url)
@@ -102,6 +110,7 @@ class TaskModelTests(TestCase):
             "description": "New Description",
             "status": self.status.id,
             "executor": self.another_user.id,
+            "labels": [self.label.id, self.label2.id],
         }
 
         response = self.client.post(self.task_create_url, task_data)
@@ -142,6 +151,7 @@ class TaskModelTests(TestCase):
             "description": "Updated Description",
             "status": self.status2.id,
             "executor": self.another_user.id,
+            "labels": [self.label.id],
         }
 
         response = self.client.post(self.task_update_url, task_data)

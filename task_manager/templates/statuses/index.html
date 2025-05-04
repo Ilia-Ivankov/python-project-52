@@ -19,7 +19,7 @@
         <tr>
             <td>{{ status.id }}</td>
             <td>{{ status.name }}</td>
-            <td> {{ status.created_at }}</td>
+            <td> {{ status.created_at|date:"Y-m-d H:i:s" }}</td>
             <td><a class="btn btn-link" href="{% url 'statuses_update' status.id %}">{% trans "Edit" %}</a>
                 <a class="btn btn-link" href="{% url 'statuses_delete' status.id %}">{% trans "Delete" %}</a></td>
         </tr>

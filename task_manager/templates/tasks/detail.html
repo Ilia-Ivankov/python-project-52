@@ -12,5 +12,11 @@
     <p>{% trans "Owner" %}: {{ task.owner.username }}</p>
     <p>{% trans "Executor" %}: {{ task.executor.username }}</p>
     <p>{% trans "Created at" %}: {{ task.created_at }}</p>
+    <p>{% trans "Labels" %}</p>
+    <ul>
+        {% for label in task.labels.all %}
+            <li>{{ label.name }}</li>
+        {% endfor %}
+    </ul>
 </div>
 {% endblock %}

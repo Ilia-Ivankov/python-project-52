@@ -41,6 +41,7 @@ ALLOWED_HOSTS = hosts
 
 INSTALLED_APPS = [
     'task_manager',
+    'task_manager.labels',
     'task_manager.statuses',
     'task_manager.users',
     'task_manager.tasks',

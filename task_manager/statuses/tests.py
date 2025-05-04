@@ -76,7 +76,9 @@ class StatusTest(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "general_form.html")
 
-        response = self.client.post(self.update_url, {"name": "Updated Status"})
+        response = self.client.post(
+            self.update_url,
+            {"name": "Updated Status"})
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, self.statuses_url)
 
@@ -93,7 +95,9 @@ class StatusTest(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, self.login_url)
 
-        response = self.client.post(self.update_url, {"name": "Updated Status"})
+        response = self.client.post(
+            self.update_url,
+            {"name": "Updated Status"})
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, self.login_url)
 
