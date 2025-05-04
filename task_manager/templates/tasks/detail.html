@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% load i18n %}
+{% block content %}
+<div class="container">
+    <h1>{% trans "Task details" %}</h1>
+</div>
+<div class="container">
+    <p>{% trans "Name" %}: {{ task.name }}</p>
+    <p>{% trans "Description" %}: {{ task.description }}</p>
+    <p>{% trans "Status" %}: {{ task.status.name }}</p>
+    <p>{% trans "Owner" %}: {{ task.owner.username }}</p>
+    <p>{% trans "Executor" %}: {{ task.executor.username }}</p>
+    <p>{% trans "Created at" %}: {{ task.created_at }}</p>
+</div>
+{% endblock %}

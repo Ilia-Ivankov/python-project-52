@@ -4,7 +4,7 @@
 
 {% block content %}
 <h1 class="h1 .text-center">{% trans "Statuses" %}</h1>
-<a class="btn btn-lg btn-primary" href="{% url 'status_create' %}">{% trans "Create status" %}</a>
+<a class="btn btn-lg btn-primary" href="{% url 'statuses_create' %}">{% trans "Create status" %}</a>
 <table class="table table-sm table-bordered table-hover">
     <thead>
         <tr>
@@ -20,7 +20,8 @@
             <td>{{ status.id }}</td>
             <td>{{ status.name }}</td>
             <td> {{ status.created_at }}</td>
-            <td><a class="btn btn-link" href="{% url 'status_update' status.id %}">{% trans "Edit" %}</a></td>
+            <td><a class="btn btn-link" href="{% url 'statuses_update' status.id %}">{% trans "Edit" %}</a>
+                <a class="btn btn-link" href="{% url 'statuses_delete' status.id %}">{% trans "Delete" %}</a></td>
         </tr>
     </tbody>
     {% endfor %}

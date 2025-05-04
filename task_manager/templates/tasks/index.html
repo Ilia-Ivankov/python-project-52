@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% load i18n %}
+{% block content %}
+<div class="container">
+    <h1>{% trans "Tasks" %}</h1>
+</div>
+<a href="{% url 'task_create' %}" class="btn btn-primary">{% trans "Create task" %}</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>{% trans "Name" %}</th>
+            <th>{% trans "Status" %}</th>
+            <th>{% trans "Owner" %}</th>
+            <th>{% trans "Executor" %}</th>
+            <th>{% trans "Created at" %}</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for task in tasks %}
+        <tr>
+            <td><a href="{% url 'task_detail' task.id %}"></a>{{ task.name }}</a></td>
+            <td>{{ task.status.name }}</td>
+            <td>{{ task.owner.username }}</td>
+            <td>{{ task.executor.username }}</td>
+            <td>{{ task.created_at }}</td>
+            <td>
+                <a href="{% url 'task_update' task.id %}" class="btn btn-primary">{% trans "Update" %}</a>
+                <a href="{% url 'task_delete' task.id %}" class="btn btn-danger">{% trans "Delete" %}</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

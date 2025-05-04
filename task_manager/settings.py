@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'task_manager',
     'task_manager.statuses',
     'task_manager.users',
+    'task_manager.tasks',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
