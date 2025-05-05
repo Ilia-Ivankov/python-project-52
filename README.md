@@ -3,6 +3,7 @@
 ### CI
 [![Continuous Integration](https://github.com/Ilia-Ivankov/python-project-52/actions/workflows/ci.yml/badge.svg)](https://github.com/Ilia-Ivankov/python-project-52/actions/workflows/ci.yml)
 ### Maintainability
+[![Maintainability](https://api.codeclimate.com/v1/badges/aa4c6d38df7a5dcdf29a/maintainability)](https://codeclimate.com/github/Ilia-Ivankov/python-project-52/maintainability)
 
 # Task Manager
 
@@ -60,7 +61,6 @@ You can see all tools in `pyproject.toml` file.
 ├── staticfiles/              # Static assets (CSS, JS, images)
 ├── task_manager/             # Main Django application
 │   ├── migrations/           # Database migrations
-│   ├── static/               # App-specific static files
 │   ├── templates/            # HTML templates
 │   ├── tests/                # Unit and integration tests
 │   ├── admin.py              # Django admin configuration
