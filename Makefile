@@ -17,6 +17,7 @@ lint:
 	uv run flake8 task_manager
 
 test:
-	uv run python manage.py test
+	uv run python manage.py test task_manager.tests
 
-
+run:
+	uv run python manage.py runserver

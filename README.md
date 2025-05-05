@@ -1,61 +1,138 @@
+### Hexlet tests and linter status:
+[![Actions Status](https://github.com/Ilia-Ivankov/python-project-52/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Ilia-Ivankov/python-project-52/actions)
+### CI
+[![CI](https://github.com/Ilia-Ivankov/python-project-52/actions/workflows/CI.yml/badge.svg)](https://github.com/Ilia-Ivankov/python-project-52/actions/workflows/CI.yml)
+### Maintainability
+
 # Task Manager
 
-## Введение
+A modern, scalable task management system built with Django and Python.
 
-Это проект для управления задачами на основе Django. Приложение позволяет создавать, редактировать, удалять задачи, управлять статусами, метками и пользователями. Оно поддерживает локализацию (включая русский язык), тестирование и соответствует принципам чистого кода, безопасности, а также оптимизировано для производительности.
+## Project features
 
-## Установка и запуск
+- User authentication
+- Task management
+- Label management
+- Status management
+- User management
 
-1. Убедитесь, что у вас установлен Python 3.10 или выше.
-2. Клонируйте репозиторий и перейдите в директорию проекта.
-3. Установите зависимости. Если requirements.txt отсутствует, создайте его из pyproject.toml:
-   ```bash
-   uv pip freeze > requirements.txt
-   uv pip install -r requirements.txt
-   ```
-4. Примените миграции и запустите сервер:
-   ```bash
-   python manage.py migrate
-   python manage.py runserver
-   ```
+## Technology Stack
 
-## Структура проекта
+- **Backend**:
+  - Python 3.10+
+  - Django 5.2
+  - PostgreSQL (production-grade database)
+  - SQLite (development database)
 
-- **task_manager/**: Основные модули (модели, вьюшки, формы, миграции).
-- **templates/**: HTML-шаблоны для интерфейса.
-- **staticfiles/**: Статические файлы (CSS, JS).
-- **locale/**: Файлы локализации для поддержки русского и английского.
-- **tests/**: Юнит-тесты с использованием Pytest.
-- **Другие файлы**: Обратите внимание на untracked файлы, такие как .python-version и uv.lock, которые могут потребовать добавления в .gitignore для чистоты репозитория.
+- **Frontend**:
+  - HTML5
+  - Bootstrap 5 (responsive design)
 
-## Функциональность
+- **Build & Automation**:
+  - Makefile (for project automation)
+  - uv (dependency management)
 
-- **Пользователи**: Регистрация, аутентификация, редактирование профилей с защитой данных.
-- **Задачи**: Создание, просмотр, обновление и удаление с ассоциацией статусов, исполнителей и меток.
-- **Статусы и метки**: Пользовательское управление для организации задач.
-- **Локализация**: Полная поддержка языков и региональных настроек.
+- **Testing**:
+  - Django Test Framework
 
-## Технологии
+- **CI/CD**:
+  - GitHub Actions (automated testing and deployment)
 
-- **Фреймворк**: Django 5.2+ с CI/CD через GitHub Actions.
-- **Базы данных**: SQLite по умолчанию, расширяемо с PostgreSQL.
-- **Тестирование**: Pytest для unit- и integration-тестов.
-- **Безопасность**: Защита от XSS, CSRF, хэширование паролей и мониторинг ошибок.
+- **Other Tools**:
+  - Flake8 (linting)
+  - Whitenoise (static files)
+  - Rollbar (error tracking)
+  - Gunicorn (production server)
+  - Django-filter (filtering)
+  - Django-bootstrap5 (bootstrap)
 
-## Как внести вклад
+You can see all tools in `pyproject.toml` file.
 
-1. Убедитесь, что изменения соответствуют стандартам (PEP 8, SOLID).
-2. Создайте issue для обсуждения.
-3. Внесите pull request и пройдите код-ревью.
+## Project Structure
 
-## Лицензия
+```
+.
+├── .github/                  # GitHub CI/CD workflows
+│   └── workflows/
+│       └── hexlet-check.yml  # Hexlet test workflow
+├── .venv/                    # Virtual environment (ignored in Git)
+├── locale/                   # Translation files for i18n
+├── staticfiles/              # Static assets (CSS, JS, images)
+├── task_manager/             # Main Django application
+│   ├── migrations/           # Database migrations
+│   ├── static/               # App-specific static files
+│   ├── templates/            # HTML templates
+│   ├── tests/                # Unit and integration tests
+│   ├── admin.py              # Django admin configuration
+│   ├── apps.py               # App configuration
+│   ├── models.py             # Database models
+│   ├── urls.py               # URL routing
+│   └── views.py              # Business logic
+├── .env.example              # Environment variables template
+├── .gitignore                # Files ignored by Git
+├── build.sh                  # Build script
+├── db.sqlite3                # Development database (ignored in Git)
+├── Makefile                  # Build automation
+├── manage.py                 # Django management script
+├── pyproject.toml            # Project metadata and dependencies
+├── README.md                 # Project documentation
+└── setup.cfg                 # Additional configuration for linting
+```
 
-[MIT License] (укажите актуальную, если есть).
+## Production Deployment
 
-## Контакты
+### Prerequisites
+- PostgreSQL
+- Gunicorn
 
-Для вопросов: [Ваше имя или email].
+### Makefile commands
 
----
+```bash
+make build # setups all
+make test # runs tests
+make lint # runs linting
+make collectstatic # collects static files
+make migrate # applies migrations
+make run # starts the server
+make render-start # starts the server(production)
 
-Приложение разработано с учетом экологии (оптимизация ресурсов) и этических стандартов. Спасибо за использование!
+```
+
+## How to run the project
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/Ilia-Ivankov/python-project-52.git
+```
+
+2. Install dependencies
+
+```bash
+make build
+```
+
+3. Run the project
+
+```bash
+make run
+```
+
+Don't forget to create `.env` file and set `SECRET_KEY`, `ROLLBAR_TOKEN`, `DATABASE_URL`(for production), `DEBUG`(if True, u will see errors in browser), `ALLOWED_HOSTS`.
+
+## How to use the project
+
+1. Register
+2. Login
+3. Create a status
+4. Create a label
+5. Create a task
+6. Edit a task
+7. Delete a task
+8. Delete a status
+9. Delete a label
+10. Filter tasks
+
+And more...
+
+
