@@ -1,7 +1,7 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/Ilia-Ivankov/python-project-52/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Ilia-Ivankov/python-project-52/actions)
 ### CI
-[![CI](https://github.com/Ilia-Ivankov/python-project-52/actions/workflows/CI.yml/badge.svg)](https://github.com/Ilia-Ivankov/python-project-52/actions/workflows/CI.yml)
+[![Continuous Integration](https://github.com/Ilia-Ivankov/python-project-52/actions/workflows/ci.yml/badge.svg)](https://github.com/Ilia-Ivankov/python-project-52/actions/workflows/ci.yml)
 ### Maintainability
 
 # Task Manager
