@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'task_manager.statuses',
     'task_manager.users',
     'task_manager.tasks',
+    'task_manager.tests',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -134,7 +135,7 @@ LOCALE_PATHS = [
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = '/ static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Дополнительные настройки для производительности (опционально)
@@ -144,3 +145,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = '/'
+
+# Добавьте комментарий для ясности
+# Чтобы Django обнаруживал тесты в отдельной папке, убедитесь, что она находится внутри приложения и содержит файлы test_*.py. Если это новое приложение, добавьте его в INSTALLED_APPS.

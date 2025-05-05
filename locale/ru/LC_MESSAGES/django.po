@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-04 19:48+0300\n"
+"POT-Creation-Date: 2025-05-05 17:49+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -109,7 +109,7 @@ msgstr "Вы уверены, что вы хотите удалить эту ме
 msgid "Label deleted successfully"
 msgstr "Метка успешно удалена"
 
-#: task_manager/mixins.py:9 task_manager/mixins.py:53
+#: task_manager/mixins.py:9 task_manager/mixins.py:26 task_manager/mixins.py:56
 msgid "You are not logged in! Please log in"
 msgstr "Вы не авторизованы! Пожалуйста, выполните вход."
 
@@ -117,11 +117,11 @@ msgstr "Вы не авторизованы! Пожалуйста, выполни
 msgid "You do not have permission to perform this action"
 msgstr "У вас нет прав чтобы сделать это действие"
 
-#: task_manager/mixins.py:31
+#: task_manager/mixins.py:34
 msgid "You do not have permission to edit this user."
 msgstr "У вас нет прав на изменение этого пользователя"
 
-#: task_manager/mixins.py:41
+#: task_manager/mixins.py:44
 msgid "You do not have permission to delete this user."
 msgstr "У вас нет прав на удаление этого пользователя"
 
@@ -159,7 +159,7 @@ msgid "Delete status"
 msgstr "Удалить статус"
 
 #: task_manager/statuses/views.py:66 task_manager/tasks/views.py:84
-#: task_manager/users/views.py:102
+#: task_manager/users/views.py:99
 msgid "Are you sure you want to delete"
 msgstr "Вы уверены, что хотите удалить"
 
@@ -252,7 +252,7 @@ msgstr "Выйти"
 msgid "Login"
 msgstr "Войти"
 
-#: task_manager/templates/base.html:46 task_manager/users/views.py:41
+#: task_manager/templates/base.html:46 task_manager/users/views.py:40
 msgid "Registration"
 msgstr "Регистрация"
 
@@ -355,38 +355,38 @@ msgstr "Имя"
 msgid "User"
 msgstr "Пользователь"
 
-#: task_manager/users/views.py:35
+#: task_manager/users/views.py:34
 msgid "The user has been successfully registered"
 msgstr "Пользователь успешно зарегистрирован"
 
-#: task_manager/users/views.py:42
+#: task_manager/users/views.py:41
 msgid "Register"
 msgstr "Зарегистрировать"
 
-#: task_manager/users/views.py:59
+#: task_manager/users/views.py:57
 msgid "Changing the user"
 msgstr "Изменение пользователя"
 
-#: task_manager/users/views.py:60
+#: task_manager/users/views.py:58
 msgid "Change"
 msgstr "Изменить"
 
-#: task_manager/users/views.py:64
+#: task_manager/users/views.py:62
 msgid "User successfully edited"
 msgstr "Пользователь успешно изменен"
 
-#: task_manager/users/views.py:71
+#: task_manager/users/views.py:69
 msgid ""
 "There was an error with your submission. Please correct the errors below."
 msgstr ""
 "В вашей заявке была допущена ошибка. Пожалуйста, исправьте ошибки, указанные "
 "ниже."
 
-#: task_manager/users/views.py:90
+#: task_manager/users/views.py:87
 msgid "User successfully deleted"
 msgstr "Пользователь успешно удален"
 
-#: task_manager/users/views.py:100
+#: task_manager/users/views.py:97
 msgid "Deleting user"
 msgstr "Удаление пользователя"
 

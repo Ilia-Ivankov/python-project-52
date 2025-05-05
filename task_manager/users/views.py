@@ -11,7 +11,6 @@ from .models import User
 from .forms import UserRegisterForm
 from django.db import models
 from task_manager.mixins import (
-    CustomLoginRequiredMixin,
     UserEditPermissionMixin,
     UserDeletePermissionMixin,
 )
@@ -44,7 +43,6 @@ class UsersCreateView(CreateView):
 
 
 class UsersUpdateView(
-    CustomLoginRequiredMixin,
     UserEditPermissionMixin,
     UpdateView
 ):
@@ -76,7 +74,6 @@ class UsersUpdateView(
 
 
 class UserDeleteView(
-    CustomLoginRequiredMixin,
     UserDeletePermissionMixin,
     DeleteView
 ):

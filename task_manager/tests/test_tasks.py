@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 
-from .models import Task
+from task_manager.tasks.models import Task
 from task_manager.statuses.models import Status
 from task_manager.labels.models import Label
 User = get_user_model()
@@ -203,3 +203,12 @@ class TaskModelTests(TestCase):
 
         self.assertEqual(Task.objects.count(), 1)
         self.assertTrue(Task.objects.filter(id=self.task.id).exists())
+
+    def test_task_filter(self):
+        self.client.login(username="testuser", password="testpassword")
+
+        response = self.client.get(self.tasks_url, {"status": self.status2.id})
+        self.assertEqual(response.status_code, 200)
+
+        tasks = response.context["tasks"]
+        self.assertNotIn(self.task, tasks)

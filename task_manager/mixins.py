@@ -21,6 +21,9 @@ class UserOwnershipMixin(UserPassesTestMixin):
 
     def handle_no_permission(self):
         if not self.request.user.is_authenticated:
+            messages.error(
+                self.request,
+                _("You are not logged in! Please log in"))
             return redirect(reverse_lazy("login"))
 
         messages.error(self.request, self.permission_message)
@@ -51,6 +54,7 @@ class UserDeletePermissionMixin(UserOwnershipMixin):
             messages.error(
                 self.request,
                 _("You are not logged in! Please log in"))
+            return redirect(reverse_lazy("login"))
         else:
             messages.error(self.request, self.permission_message)
         return redirect(self.success_url)
