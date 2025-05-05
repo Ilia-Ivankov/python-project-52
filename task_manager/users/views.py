@@ -13,6 +13,7 @@ from django.db import models
 from task_manager.mixins import (
     UserEditPermissionMixin,
     UserDeletePermissionMixin,
+    FormContextMixin,
 )
 
 
@@ -22,11 +23,13 @@ class UsersIndexView(View):
         return render(request, "users/index.html", context={"users": users})
 
 
-class UsersCreateView(CreateView):
+class UsersCreateView(FormContextMixin, CreateView):
     model = User
     form_class = UserRegisterForm
     template_name = "general_form.html"
     success_url = reverse_lazy("login")
+    text = "Registration"
+    button = "Register"
 
     def form_valid(self, form) -> HttpResponse:
         messages.success(
@@ -34,15 +37,9 @@ class UsersCreateView(CreateView):
             _("The user has been successfully registered"))
         return super().form_valid(form)
 
-    def get_context_data(self, **kwargs) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        context["form_action"] = self.request.path
-        context["title"] = _("Registration")
-        context["button"] = _("Register")
-        return context
-
 
 class UsersUpdateView(
+    FormContextMixin,
     UserEditPermissionMixin,
     UpdateView
 ):
@@ -50,13 +47,8 @@ class UsersUpdateView(
     form_class = UserRegisterForm
     template_name = "general_form.html"
     success_url = reverse_lazy("users")
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["form_action"] = self.request.path
-        context["title"] = _("Changing the user")
-        context["button"] = _("Change")
-        return context
+    text = "Changing the user"
+    button = "Change"
 
     def form_valid(self, form):
         messages.success(self.request, _("User successfully edited"))

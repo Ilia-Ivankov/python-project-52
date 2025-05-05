@@ -7,7 +7,10 @@ from django.utils.translation import gettext_lazy as _
 from .models import Status
 from .forms import StatusForm
 from django.db import models
-from task_manager.mixins import CustomLoginRequiredMixin
+from task_manager.mixins import (
+    CustomLoginRequiredMixin,
+    FormContextMixin,
+)
 from django.http import HttpResponse
 
 
@@ -17,40 +20,38 @@ class StatusesIndexView(CustomLoginRequiredMixin, ListView):
     context_object_name = "statuses"
 
 
-class StatusesCreateView(CustomLoginRequiredMixin, CreateView):
+class StatusesCreateView(
+    FormContextMixin,
+    CustomLoginRequiredMixin,
+    CreateView
+):
     model = Status
     template_name = "general_form.html"
     success_url = reverse_lazy("statuses_index")
     form_class = StatusForm
+    text = "Create status"
+    button = "Create"
 
     def form_valid(self, form) -> HttpResponse:
         messages.success(self.request, _("The status was created successfully"))
         return super().form_valid(form)
 
-    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        context["form_action"] = self.request.path
-        context["button"] = _("Create")
-        context["text"] = _("Create status")
-        return context
 
-
-class StatusesUpdateView(CustomLoginRequiredMixin, UpdateView):
+class StatusesUpdateView(
+    FormContextMixin,
+    CustomLoginRequiredMixin,
+    UpdateView
+):
     form_class = StatusForm
     model = Status
     template_name = "general_form.html"
     success_url = reverse_lazy("statuses_index")
+    text = "Update status"
+    button = "Update"
 
     def form_valid(self, form) -> HttpResponse:
         messages.success(self.request, _("The status was updated successfully"))
         return super().form_valid(form)
-
-    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        context["form_action"] = self.request.path
-        context["button"] = _("Update")
-        context["text"] = _("Update status")
-        return context
 
 
 class StatusesDeleteView(CustomLoginRequiredMixin, DeleteView):
