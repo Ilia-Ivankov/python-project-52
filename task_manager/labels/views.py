@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from .models import Label
 from django.utils.translation import gettext_lazy as _
 from .forms import LabelForm
-from task_manager.mixins import CustomLoginRequiredMixin, FormContextMixin
+from task_manager.mixins import CustomLoginRequiredMixin
 from django.contrib import messages
 from django.db import models
 from django.shortcuts import redirect
@@ -16,30 +16,40 @@ class LabelListView(CustomLoginRequiredMixin, ListView):
     context_object_name = "labels"
 
 
-class LabelCreateView(FormContextMixin, CustomLoginRequiredMixin, CreateView):
+class LabelCreateView(CustomLoginRequiredMixin, CreateView):
     model = Label
     form_class = LabelForm
     template_name = "general_form.html"
     success_url = reverse_lazy("label_list")
-    text = "Create label"
-    button = "Create"
 
     def form_valid(self, form) -> HttpResponse:
         messages.success(self.request, _("Label created successfully"))
         return super().form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form_action"] = self.request.path
+        context["text"] = _("Create label")
+        context["button"] = _("Create")
+        return context
 
-class LabelUpdateView(FormContextMixin, CustomLoginRequiredMixin, UpdateView):
+
+class LabelUpdateView(CustomLoginRequiredMixin, UpdateView):
     model = Label
     form_class = LabelForm
     template_name = "general_form.html"
     success_url = reverse_lazy("label_list")
-    text = "Update label"
-    button = "Update"
 
     def form_valid(self, form) -> HttpResponse:
         messages.success(self.request, _("Label updated successfully"))
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form_action"] = self.request.path
+        context["text"] = _("Update label")
+        context["button"] = _("Update")
+        return context
 
 
 class LabelDeleteView(CustomLoginRequiredMixin, DeleteView):

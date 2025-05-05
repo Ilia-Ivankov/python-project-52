@@ -11,7 +11,7 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from .models import Task
 from .forms import TaskForm
-from task_manager.mixins import CustomLoginRequiredMixin, FormContextMixin
+from task_manager.mixins import CustomLoginRequiredMixin
 from django_filters.views import FilterView
 from .forms import TaskFilter
 
@@ -23,26 +23,36 @@ class TaskListView(CustomLoginRequiredMixin, FilterView):
     filterset_class = TaskFilter
 
 
-class TaskCreateView(FormContextMixin, CustomLoginRequiredMixin, CreateView):
+class TaskCreateView(CustomLoginRequiredMixin, CreateView):
     model = Task
     form_class = TaskForm
     template_name = "general_form.html"
     success_url = reverse_lazy("tasks_index")
-    text = "Create task"
-    button = "Create"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form_action"] = self.request.path
+        context["text"] = _("Create task")
+        context["button"] = _("Create")
+        return context
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super().form_valid(form)
 
 
-class TaskUpdateView(FormContextMixin, CustomLoginRequiredMixin, UpdateView):
+class TaskUpdateView(CustomLoginRequiredMixin, UpdateView):
     model = Task
     form_class = TaskForm
     template_name = "general_form.html"
     success_url = reverse_lazy("tasks_index")
-    text = "Update task"
-    button = "Update"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form_action"] = self.request.path
+        context["text"] = _("Update task")
+        context["button"] = _("Update")
+        return context
 
     def form_valid(self, form):
         messages.success(self.request, _("Task successfully updated"))

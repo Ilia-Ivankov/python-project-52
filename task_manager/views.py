@@ -1,3 +1,4 @@
+from typing import Any
 from django.http import HttpResponse
 from django.views.generic import TemplateView
 from django.contrib import messages
@@ -6,18 +7,16 @@ from django.utils.translation import gettext_lazy as _
 from .forms import UserLoginForm
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
-from task_manager.mixins import FormContextMixin
 
 
 class IndexView(TemplateView):
     template_name = "index.html"
 
 
-class LoginView(FormContextMixin, LoginView):
+class LoginView(LoginView):
     authentication_form = UserLoginForm
     success_url = reverse_lazy("index")
-    text = "Login"
-    button = "Login"
+
     redirect_authenticated_user = True
     template_name = "general_form.html"
 
@@ -34,6 +33,13 @@ class LoginView(FormContextMixin, LoginView):
     def form_valid(self, form) -> HttpResponse:
         messages.success(self.request, _("You are logged in"))
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["form_action"] = self.request.path
+        context["Title"] = _("Login")
+        context["button"] = _("Login")
+        return context
 
 
 class LogoutView(BaseLogoutView):

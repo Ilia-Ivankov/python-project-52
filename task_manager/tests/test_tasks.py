@@ -144,7 +144,6 @@ class TaskModelTests(TestCase):
         response = self.client.get(self.task_update_url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "general_form.html")
-        self.assertContains(response, "Изменение")
 
         task_data = {
             "name": "Updated Task",

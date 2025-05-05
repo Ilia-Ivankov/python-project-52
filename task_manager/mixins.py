@@ -58,17 +58,3 @@ class UserDeletePermissionMixin(UserOwnershipMixin):
         else:
             messages.error(self.request, self.permission_message)
         return redirect(self.success_url)
-
-
-class FormContextMixin:
-    text = None
-    button = None
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context.update({
-            "form_action": self.request.path,
-            "text": _(self.text),
-            "button": _(self.button),
-        })
-        return context
