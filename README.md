@@ -4,6 +4,8 @@
 [![Continuous Integration](https://github.com/Ilia-Ivankov/python-project-52/actions/workflows/ci.yml/badge.svg)](https://github.com/Ilia-Ivankov/python-project-52/actions/workflows/ci.yml)
 ### Maintainability
 [![Maintainability](https://api.codeclimate.com/v1/badges/aa4c6d38df7a5dcdf29a/maintainability)](https://codeclimate.com/github/Ilia-Ivankov/python-project-52/maintainability)
+### This project is deployed on render
+[![Render](https://render.com/images/render-logo-social-card.png)](https://python-project-52-2dgn.onrender.com)
 
 # Task Manager
 
@@ -136,3 +138,4 @@ Don't forget to create `.env` file and set `SECRET_KEY`, `ROLLBAR_TOKEN`, `DATAB
 And more...
 
 
+## Example of work
