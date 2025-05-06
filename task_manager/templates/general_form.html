@@ -11,7 +11,7 @@
             <div class="card-body p-4">
                 <form action="{{ form_action }}" method="post">
                     {% csrf_token %}
-                    {% bootstrap_form form layout="floating" %}
+                    {% bootstrap_form form %}
                     <div class="d-grid gap-2 mt-4">
                         <input class="btn btn-primary btn-lg" type="submit" value="{{button}}">
                     </div>
