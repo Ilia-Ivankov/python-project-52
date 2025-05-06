@@ -4,9 +4,6 @@ version = "0.1.0"
 description = "Task manager"
 readme = "README.md"
 requires-python = ">=3.10"
-packages = [
-  { include = "task_manager" },
-]
 dependencies = [
     "dj-database-url>=2.3.0",
     "django>=5.2",
@@ -24,6 +21,13 @@ dependencies = [
 dev = [
     "flake8>=7.2.0",
 ]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["task_manager"]
 
 [tool.uv]
 package = true
