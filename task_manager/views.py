@@ -37,8 +37,8 @@ class LoginView(LoginView):
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["form_action"] = self.request.path
-        context["Title"] = _("Login")
-        context["button"] = _("Login")
+        context["text"] = _("Login")
+        context["button"] = _("Log in")
         return context
 
 
