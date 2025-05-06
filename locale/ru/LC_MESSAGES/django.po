@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-06 21:44+0300\n"
+"POT-Creation-Date: 2025-05-06 21:56+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -262,6 +262,10 @@ msgstr "Да, удалить"
 #: task_manager/templates/index.html:6
 msgid "Hello, World!"
 msgstr "Добро пожаловать!"
+
+#: task_manager/templates/labels/index.html:6
+msgid "Create Label"
+msgstr "Создать метку"
 
 #: task_manager/templates/labels/index.html:10
 #: task_manager/templates/statuses/index.html:11
