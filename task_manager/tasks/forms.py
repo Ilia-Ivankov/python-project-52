@@ -25,11 +25,8 @@ class TaskForm(forms.ModelForm):
             ),
             "status": forms.Select(),
             "executor": forms.Select(),
-            "labels": forms.SelectMultiple(
-                attrs={"required": False}
-            ),
+            "labels": forms.SelectMultiple(),
         }
-
 
 class TaskFilter(django_filters.FilterSet):
     labels = django_filters.ModelChoiceFilter(
