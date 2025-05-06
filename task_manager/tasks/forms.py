@@ -23,14 +23,10 @@ class TaskForm(forms.ModelForm):
             "description": forms.Textarea(
                 attrs={"placeholder": _("Description")}
             ),
-            "status": forms.Select(
-                attrs={"placeholder": _("Status")}
-            ),
-            "executor": forms.Select(
-                attrs={"placeholder": _("Executor")}
-            ),
+            "status": forms.Select(),
+            "executor": forms.Select(),
             "labels": forms.SelectMultiple(
-                attrs={"placeholder": _("Labels")}
+                attrs={"required": False}
             ),
         }
 
