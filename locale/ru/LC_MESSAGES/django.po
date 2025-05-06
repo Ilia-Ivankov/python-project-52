@@ -250,7 +250,7 @@ msgstr "Выйти"
 #: task_manager/templates/base.html:43 task_manager/views.py:40
 #: task_manager/views.py:41
 msgid "Login"
-msgstr "Войти"
+msgstr "Вход"
 
 #: task_manager/templates/base.html:46 task_manager/users/views.py:40
 msgid "Registration"
