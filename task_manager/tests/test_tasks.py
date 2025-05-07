@@ -65,7 +65,7 @@ class TaskModelTests(TestCase):
         self.assertTemplateUsed(response, "tasks/index.html")
         self.assertContains(response, "Test Task")
         self.assertContains(response, "To Do")
-        self.assertContains(response, "testuser")
+        self.assertContains(response, "Test User")
 
         tasks = response.context["tasks"]
         self.assertEqual(len(tasks), 1)
