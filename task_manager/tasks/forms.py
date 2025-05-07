@@ -22,27 +22,21 @@ class TaskForm(forms.ModelForm):
         queryset=Status.objects.all(),
         label=_("Status"),
         empty_label=None,
-        widget=forms.Select(attrs={
-            "class": "form-select",
-            "id": "id_status",
-        })
+        widget=forms.Select()
     )
     executor = forms.ModelChoiceField(
         queryset=User.objects.all(),
         empty_label=None,
         widget=forms.Select(attrs={
-            "class": "form-select",
-            "id": "id_executor",
+            "name": "Исполнитель",
+            "class": "form-select"
         })
     )
     labels = forms.ModelMultipleChoiceField(
         queryset=Label.objects.all(),
         label=_("Labels"),
         required=False,
-        widget=forms.SelectMultiple(attrs={
-            "class": "form-select",
-            "id": "id_labels",
-        })
+        widget=forms.SelectMultiple()
     )
 
     class Meta:
