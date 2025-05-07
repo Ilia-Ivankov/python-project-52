@@ -26,10 +26,10 @@ class TaskForm(forms.ModelForm):
     )
     executor = forms.ModelChoiceField(
         queryset=User.objects.all(),
+        label=_("Executor"),
         empty_label=None,
         widget=forms.Select(attrs={
-            "name": "Исполнитель",
-            "class": "form-select"
+            "id": "id_executor"
         })
     )
     labels = forms.ModelMultipleChoiceField(
