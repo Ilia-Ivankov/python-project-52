@@ -10,32 +10,34 @@ User = get_user_model()
 
 
 class TaskForm(forms.ModelForm):
+    name = forms.CharField(
+        label=_("Name"),
+        widget=forms.TextInput(attrs={"placeholder": _("Name")})
+    )
+    description = forms.CharField(
+        label=_("Description"),
+        widget=forms.Textarea(attrs={"placeholder": _("Description")})
+    )
     status = forms.ModelChoiceField(
         queryset=Status.objects.all(),
-        label=_("Status")
+        label=_("Status"),
+        widget=forms.Select(attrs={"class": "form-select"})
     )
     executor = forms.ModelChoiceField(
         queryset=User.objects.all(),
-        label=_("Executor")
+        label=_("Executor"),
+        widget=forms.Select(attrs={"class": "form-select"})
+    )
+    labels = forms.ModelMultipleChoiceField(
+        queryset=Label.objects.all(),
+        label=_("Labels"),
+        required=False,
+        widget=forms.SelectMultiple(attrs={"class": "form-select"})
     )
 
     class Meta:
         model = Task
         fields = ["name", "description", "status", "executor", "labels"]
-        labels = {
-            "name": _("Name"),
-            "description": _("Description"),
-            "labels": _("Labels"),
-        }
-        widgets = {
-            "name": forms.TextInput(
-                attrs={"placeholder": _("Name")}
-            ),
-            "description": forms.Textarea(
-                attrs={"placeholder": _("Description")}
-            ),
-            "labels": forms.SelectMultiple(),
-        }
 
 
 class TaskFilter(django_filters.FilterSet):
