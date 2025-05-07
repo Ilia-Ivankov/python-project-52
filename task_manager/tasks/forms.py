@@ -9,6 +9,11 @@ from task_manager.statuses.models import Status
 User = get_user_model()
 
 
+class UserModelChoiceField(forms.ModelChoiceField):
+    def label_from_instance(self, obj):
+        return obj.get_full_name()
+
+
 class TaskForm(forms.ModelForm):
     name = forms.CharField(
         label=_("Name"),
@@ -19,24 +24,16 @@ class TaskForm(forms.ModelForm):
         widget=forms.Textarea(attrs={"placeholder": _("Description")})
     )
     status = forms.ModelChoiceField(
-        queryset=Status.objects.all(),
         label=_("Status"),
-        empty_label=None,
-        widget=forms.Select()
     )
-    executor = forms.ModelChoiceField(
+    executor = UserModelChoiceField(
         queryset=User.objects.all(),
         label=_("Executor"),
         empty_label=None,
-        widget=forms.Select(attrs={
-            "id": "id_executor"
-        })
+        widget=forms.Select()
     )
     labels = forms.ModelMultipleChoiceField(
-        queryset=Label.objects.all(),
         label=_("Labels"),
-        required=False,
-        widget=forms.SelectMultiple()
     )
 
     class Meta:
