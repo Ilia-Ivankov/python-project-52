@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.views.generic import (
@@ -88,6 +88,7 @@ class TaskDeleteView(CustomLoginRequiredMixin, UserPassesTestMixin, DeleteView):
             + self.get_object().name + "?"
         )
         return context
+
     def post(self, request: HttpRequest, *args: str, **kwargs):
         messages.success(request, _("Task successfully deleted"))
         return super().post(request, *args, **kwargs)
