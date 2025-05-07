@@ -10,14 +10,21 @@ User = get_user_model()
 
 
 class TaskForm(forms.ModelForm):
+    status = forms.ModelChoiceField(
+        queryset=Status.objects.all(),
+        label=_("Status")
+    )
+    executor = forms.ModelChoiceField(
+        queryset=User.objects.all(),
+        label=_("Executor")
+    )
+
     class Meta:
         model = Task
         fields = ["name", "description", "status", "executor", "labels"]
         labels = {
             "name": _("Name"),
             "description": _("Description"),
-            "status": _("Status"),
-            "executor": _("Executor"),
             "labels": _("Labels"),
         }
         widgets = {
@@ -27,8 +34,6 @@ class TaskForm(forms.ModelForm):
             "description": forms.Textarea(
                 attrs={"placeholder": _("Description")}
             ),
-            "status": forms.Select(queryset=Status.objects.all()),
-            "executor": forms.Select(queryset=User.objects.all()),
             "labels": forms.SelectMultiple(),
         }
 
