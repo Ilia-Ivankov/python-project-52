@@ -25,6 +25,9 @@ class TaskForm(forms.ModelForm):
     )
     status = forms.ModelChoiceField(
         label=_("Status"),
+        queryset=Status.objects.all(),
+        empty_label=None,
+        widget=forms.Select()
     )
     executor = UserModelChoiceField(
         queryset=User.objects.all(),
@@ -33,6 +36,7 @@ class TaskForm(forms.ModelForm):
         widget=forms.Select()
     )
     labels = forms.ModelMultipleChoiceField(
+        queryset=Label.objects.all(),
         label=_("Labels"),
     )
 
