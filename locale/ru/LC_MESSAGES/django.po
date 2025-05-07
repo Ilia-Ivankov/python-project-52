@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-07 18:14+0300\n"
+"POT-Creation-Date: 2025-05-07 18:24+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,7 +78,7 @@ msgid "Create label"
 msgstr "Создание метки"
 
 #: task_manager/labels/views.py:33 task_manager/statuses/views.py:33
-#: task_manager/tasks/views.py:36
+#: task_manager/tasks/views.py:37
 msgid "Create"
 msgstr "Создать"
 
@@ -91,7 +91,7 @@ msgid "Update label"
 msgstr "Изменение метки"
 
 #: task_manager/labels/views.py:51 task_manager/statuses/views.py:51
-#: task_manager/tasks/views.py:55 task_manager/templates/labels/index.html:23
+#: task_manager/tasks/views.py:56 task_manager/templates/labels/index.html:23
 #: task_manager/templates/tasks/detail.html:21
 #: task_manager/templates/tasks/index.html:39
 msgid "Update"
@@ -158,7 +158,7 @@ msgstr "Изменение статуса"
 msgid "Delete status"
 msgstr "Удалить статус"
 
-#: task_manager/statuses/views.py:66 task_manager/tasks/views.py:85
+#: task_manager/statuses/views.py:66 task_manager/tasks/views.py:86
 #: task_manager/users/views.py:99
 msgid "Are you sure you want to delete"
 msgstr "Вы уверены, что хотите удалить"
@@ -200,31 +200,31 @@ msgstr "Только свои задачи"
 msgid "Owner"
 msgstr "Создатель"
 
-#: task_manager/tasks/views.py:35 task_manager/templates/tasks/index.html:15
+#: task_manager/tasks/views.py:36 task_manager/templates/tasks/index.html:15
 msgid "Create task"
 msgstr "Создать задачу"
 
-#: task_manager/tasks/views.py:41
+#: task_manager/tasks/views.py:42
 msgid "Task successfully created"
 msgstr "Задача успешно создана"
 
-#: task_manager/tasks/views.py:54
+#: task_manager/tasks/views.py:55
 msgid "Update task"
 msgstr "Изменение задачи"
 
-#: task_manager/tasks/views.py:59
+#: task_manager/tasks/views.py:60
 msgid "Task successfully updated"
 msgstr "Задача успешно изменена"
 
-#: task_manager/tasks/views.py:75
+#: task_manager/tasks/views.py:76
 msgid "A task can only be deleted by its author."
 msgstr "Задача может быть удалена только ее автором"
 
-#: task_manager/tasks/views.py:83
+#: task_manager/tasks/views.py:84
 msgid "Delete task"
 msgstr "Удаление задачи"
 
-#: task_manager/tasks/views.py:92
+#: task_manager/tasks/views.py:93
 msgid "Task successfully deleted"
 msgstr "Задача успешно удалена"
 
