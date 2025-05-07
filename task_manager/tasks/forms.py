@@ -3,6 +3,10 @@ import django_filters
 from task_manager.labels.models import Label
 from .models import Task
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth import get_user_model
+from task_manager.statuses.models import Status
+
+User = get_user_model()
 
 
 class TaskForm(forms.ModelForm):
@@ -23,10 +27,11 @@ class TaskForm(forms.ModelForm):
             "description": forms.Textarea(
                 attrs={"placeholder": _("Description")}
             ),
-            "status": forms.Select(),
-            "executor": forms.Select(),
+            "status": forms.Select(queryset=Status.objects.all()),
+            "executor": forms.Select(queryset=User.objects.all()),
             "labels": forms.SelectMultiple(),
         }
+
 
 class TaskFilter(django_filters.FilterSet):
     labels = django_filters.ModelChoiceFilter(
