@@ -297,7 +297,7 @@ msgstr "Просмотр задачи"
 
 #: task_manager/templates/tasks/index.html:12
 msgid "Search"
-msgstr "Найти"
+msgstr "Показать"
 
 #: task_manager/templates/users/index.html:14
 msgid "Full Name"
