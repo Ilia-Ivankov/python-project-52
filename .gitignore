@@ -11,5 +11,3 @@ media
 *.so
 setup.cfg
 .env
-/staticfiles/
-/static/
