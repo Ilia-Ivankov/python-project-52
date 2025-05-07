@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-07 18:24+0300\n"
+"POT-Creation-Date: 2025-05-07 18:31+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -119,11 +119,11 @@ msgstr "У вас нет прав чтобы сделать это действ�
 
 #: task_manager/mixins.py:34
 msgid "You do not have permission to edit this user."
-msgstr "У вас нет прав на изменение этого пользователя"
+msgstr "У вас нет прав для изменения другого пользователя"
 
 #: task_manager/mixins.py:44
 msgid "You do not have permission to delete this user."
-msgstr "У вас нет прав на удаление этого пользователя"
+msgstr "У вас нет прав для удаление другого пользователя"
 
 #: task_manager/statuses/models.py:17
 msgid "Task status"
@@ -224,7 +224,7 @@ msgstr "Задача может быть удалена только ее авт
 msgid "Delete task"
 msgstr "Удаление задачи"
 
-#: task_manager/tasks/views.py:93
+#: task_manager/tasks/views.py:92
 msgid "Task successfully deleted"
 msgstr "Задача успешно удалена"
 
