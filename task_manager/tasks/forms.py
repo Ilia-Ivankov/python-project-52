@@ -38,6 +38,8 @@ class TaskForm(forms.ModelForm):
     labels = forms.ModelMultipleChoiceField(
         queryset=Label.objects.all(),
         label=_("Labels"),
+        required=False,
+        widget=forms.SelectMultiple()
     )
 
     class Meta:

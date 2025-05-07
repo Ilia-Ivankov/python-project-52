@@ -10,7 +10,7 @@
     <p>{% trans "Description" %}: {{ task.description }}</p>
     <p>{% trans "Status" %}: {{ task.status.name }}</p>
     <p>{% trans "Owner" %}: {{ task.owner.username }}</p>
-    <p>{% trans "Executor" %}: {{ task.executor.username }}</p>
+    <p>{% trans "Executor" %}: {{ task.executor.get_full_name }}</p>
     <p>{% trans "Created at" %}: {{ task.created_at|date:"Y-m-d H:i" }}</p>
     <p>{% trans "Labels" %}</p>
     <ul>
