@@ -139,3 +139,5 @@ And more...
 
 
 ## Example of work
+
+[![asciicast](https://asciinema.org/a/At7RZiRLI1gH4d6J1eytvVKGj.svg)](https://asciinema.org/a/At7RZiRLI1gH4d6J1eytvVKGj)
