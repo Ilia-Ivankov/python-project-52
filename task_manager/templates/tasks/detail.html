@@ -14,11 +14,11 @@
     <p>{% trans "Created at" %}: {{ task.created_at|date:"Y-m-d H:i" }}</p>
     <p>{% trans "Labels" %}</p>
     <ul>
-        {% for label in labels %}
+        {% for label in task.labels.all %}
             <li>{{ label.name }}</li>
         {% endfor %}
     </ul>
-    <p><a href="{% url 'task_update' id %}">{% trans "Update" %}</a></p>
-    <p><a href="{% url 'task_delete' id %}">{% trans "Delete" %}</a></p>
+    <p><a href="{% url 'task_update' task.id %}">{% trans "Update" %}</a></p>
+    <p><a href="{% url 'task_delete' task.id %}">{% trans "Delete" %}</a></p>
 </div>
 {% endblock %}

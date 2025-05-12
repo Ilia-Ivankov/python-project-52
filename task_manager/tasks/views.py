@@ -1,5 +1,4 @@
 from django.contrib import messages
-from django.http import HttpRequest
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.views.generic import (
@@ -12,7 +11,11 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from .models import Task
 from .forms import TaskForm
-from task_manager.mixins import CustomLoginRequiredMixin
+from task_manager.mixins import (
+    CustomLoginRequiredMixin,
+    ContextMixin,
+    ContextDeleteMixin,
+)
 from django_filters.views import FilterView
 from .forms import TaskFilter
 
@@ -24,47 +27,35 @@ class TaskListView(CustomLoginRequiredMixin, FilterView):
     filterset_class = TaskFilter
 
 
-class TaskCreateView(CustomLoginRequiredMixin, CreateView):
+class TaskCreateView(CustomLoginRequiredMixin, ContextMixin, CreateView):
     model = Task
     form_class = TaskForm
-    template_name = "general_form.html"
     success_url = reverse_lazy("tasks_index")
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["form_action"] = self.request.path
-        context["text"] = _("Create task")
-        context["button"] = _("Create")
-        return context
-
-    def form_valid(self, form):
-        form.instance.owner = self.request.user
-        messages.success(self.request, _("Task successfully created"))
-        return super().form_valid(form)
+    text = _("Create task")
+    button = _("Create")
+    success_message = _("Task created successfully")
 
 
-class TaskUpdateView(CustomLoginRequiredMixin, UpdateView):
+class TaskUpdateView(CustomLoginRequiredMixin, ContextMixin, UpdateView):
     model = Task
     form_class = TaskForm
-    template_name = "general_form.html"
     success_url = reverse_lazy("tasks_index")
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["form_action"] = self.request.path
-        context["text"] = _("Update task")
-        context["button"] = _("Update")
-        return context
-
-    def form_valid(self, form):
-        messages.success(self.request, _("Task successfully updated"))
-        return super().form_valid(form)
+    text = _("Update task")
+    button = _("Update")
+    success_message = _("Task updated successfully")
 
 
-class TaskDeleteView(CustomLoginRequiredMixin, UserPassesTestMixin, DeleteView):
+class TaskDeleteView(
+    CustomLoginRequiredMixin,
+    UserPassesTestMixin,
+    ContextDeleteMixin,
+    DeleteView
+):
     model = Task
     template_name = "general_delete_form.html"
     success_url = reverse_lazy("tasks_index")
+    text = _("Delete task")
+    sucess_delete_message = _("Task successfully deleted")
 
     def test_func(self):
         return self.request.user == self.get_object().owner
@@ -78,21 +69,6 @@ class TaskDeleteView(CustomLoginRequiredMixin, UserPassesTestMixin, DeleteView):
         messages.error(self.request, self.permission_denied_message)
         return super().handle_no_permission()
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["form_action"] = self.request.path
-        context["text"] = _("Delete task")
-        context["delete_warning"] = (
-            _("Are you sure you want to delete")
-            + " "
-            + self.get_object().name + "?"
-        )
-        return context
-
-    def post(self, request: HttpRequest, *args: str, **kwargs):
-        messages.success(request, _("Task successfully deleted"))
-        return super().post(request, *args, **kwargs)
-
 
 class TaskDetailView(CustomLoginRequiredMixin, DetailView):
     model = Task
@@ -101,11 +77,5 @@ class TaskDetailView(CustomLoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['id'] = self.get_object().id
-        context["labels"] = self.get_object().labels.all()
-        context["status"] = self.get_object().status
-        context["owner"] = self.get_object().owner
-        context["executor"] = self.get_object().executor
-        context["created_at"] = self.get_object().created_at
-        context["description"] = self.get_object().description
+        context["task"] = self.get_object()
         return context

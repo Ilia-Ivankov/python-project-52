@@ -1,5 +1,3 @@
-from typing import Any
-from django.http import HttpResponse
 from django.views.generic import TemplateView
 from django.contrib import messages
 from django.contrib.auth.views import LoginView, LogoutView as BaseLogoutView
@@ -7,39 +5,25 @@ from django.utils.translation import gettext_lazy as _
 from .forms import UserLoginForm
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
+from .mixins import ContextMixin, FormValidMixin
 
 
 class IndexView(TemplateView):
     template_name = "index.html"
 
 
-class LoginView(LoginView):
+class LoginView(ContextMixin, FormValidMixin, LoginView):
     authentication_form = UserLoginForm
     success_url = reverse_lazy("index")
-
+    text = _("Login")
+    button = _("Log in")
     redirect_authenticated_user = True
     template_name = "general_form.html"
-
-    def form_invalid(self, form) -> HttpResponse:
-        messages.warning(
-            self.request,
-            _(
-                "Please enter the correct username and password. "
-                "Both fields can be case-sensitive."
-            ),
-        )
-        return super().form_invalid(form)
-
-    def form_valid(self, form) -> HttpResponse:
-        messages.success(self.request, _("You are logged in"))
-        return super().form_valid(form)
-
-    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        context = super().get_context_data(**kwargs)
-        context["form_action"] = self.request.path
-        context["text"] = _("Login")
-        context["button"] = _("Log in")
-        return context
+    success_message = _("You are logged in")
+    error_message = _(
+        "Please enter the correct username and password. "
+        "Both fields can be case-sensitive."
+    )
 
 
 class LogoutView(BaseLogoutView):

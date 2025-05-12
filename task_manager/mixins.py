@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.shortcuts import redirect
+from django.db import models
 
 
 class CustomLoginRequiredMixin(LoginRequiredMixin):
@@ -58,3 +59,54 @@ class UserDeletePermissionMixin(UserOwnershipMixin):
         else:
             messages.error(self.request, self.permission_message)
         return redirect(self.success_url)
+
+
+class ContextDeleteMixin:
+    template_name = "general_delete_form.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form_action"] = self.request.path
+        context["text"] = self.text
+        context["delete_warning"] = self.get_delete_warning()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        try:
+            response = super().post(request, *args, **kwargs)
+            messages.sucess(request, self.sucess_delete_message)
+            return response
+        except models.ProtectedError as e:
+            messages.error(request, e.args[0])
+            return redirect(self.success_url)
+
+    def get_delete_warning(self):
+        return (
+            _("Are you sure you want to delete")
+            + " "
+            + self.get_object().name
+            + "?"
+        )
+
+
+class FormValidMixin:
+    def form_valid(self, form):
+        messages.success(self.request, self.success_message)
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        if self.error_message:
+            messages.error(self.request, self.error_message)
+            return super().form_invalid(form)
+        return super().form_invalid(form)
+
+
+class ContextMixin(FormValidMixin):
+    template_name = "general_form.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form_action"] = self.request.path
+        context["text"] = self.text
+        context["button"] = self.button
+        return context
