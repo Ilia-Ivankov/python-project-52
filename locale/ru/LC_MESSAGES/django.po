@@ -160,10 +160,8 @@ msgid "Delete status"
 msgstr "Удалить статус"
 
 #: task_manager/statuses/views.py:46
-#, fuzzy
-#| msgid "The status was created successfully"
 msgid "The status was deleted successfully"
-msgstr "Статус успешно создан"
+msgstr "Статус успешно удален"
 
 #: task_manager/tasks/forms.py:23 task_manager/tasks/forms.py:24
 #: task_manager/tasks/models.py:13 task_manager/templates/tasks/detail.html:10
