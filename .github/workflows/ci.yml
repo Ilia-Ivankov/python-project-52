@@ -32,6 +32,8 @@ jobs:
     - name: Run Tests with Coverage
       run: |
         make coverage
+      env:
+        DJANGO_SETTINGS_MODULE: task_manager.tests.settings_test
         
     - name: SonarQube Scan
       uses: SonarSource/sonarqube-scan-action@v4
