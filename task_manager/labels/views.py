@@ -42,4 +42,4 @@ class LabelDeleteView(
     model = Label
     success_url = reverse_lazy("label_list")
     text = _("Delete label")
-    sucess_delete_message = _("Label deleted successfully")
+    success_delete_message = _("Label deleted successfully")

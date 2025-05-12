@@ -74,7 +74,7 @@ class ContextDeleteMixin:
     def post(self, request, *args, **kwargs):
         try:
             response = super().post(request, *args, **kwargs)
-            messages.sucess(request, self.sucess_delete_message)
+            messages.success(request, self.success_delete_message)
             return response
         except models.ProtectedError as e:
             messages.error(request, e.args[0])

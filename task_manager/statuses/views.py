@@ -41,4 +41,4 @@ class StatusesDeleteView(
     template_name = "general_delete_form.html"
     success_url = reverse_lazy("statuses_index")
     text = _("Delete status")
-    sucess_delete_message = _("The status was deleted successfully")
+    success_delete_message = _("The status was deleted successfully")

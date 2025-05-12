@@ -55,7 +55,7 @@ class TaskDeleteView(
     template_name = "general_delete_form.html"
     success_url = reverse_lazy("tasks_index")
     text = _("Delete task")
-    sucess_delete_message = _("Task successfully deleted")
+    success_delete_message = _("Task successfully deleted")
 
     def test_func(self):
         return self.request.user == self.get_object().owner
