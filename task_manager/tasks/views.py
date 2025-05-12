@@ -34,6 +34,7 @@ class TaskCreateView(CustomLoginRequiredMixin, ContextMixin, CreateView):
     text = _("Create task")
     button = _("Create")
     success_message = _("Task created successfully")
+    error_message = _("Please correct the errors below.")
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
@@ -47,6 +48,7 @@ class TaskUpdateView(CustomLoginRequiredMixin, ContextMixin, UpdateView):
     text = _("Update task")
     button = _("Update")
     success_message = _("Task updated successfully")
+    error_message = _("Please correct the errors below.")
 
 
 class TaskDeleteView(

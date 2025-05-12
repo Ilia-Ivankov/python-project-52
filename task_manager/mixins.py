@@ -95,9 +95,8 @@ class FormValidMixin:
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        if self.error_message:
+        if hasattr(self, 'error_message') and self.error_message:
             messages.error(self.request, self.error_message)
-            return super().form_invalid(form)
         return super().form_invalid(form)
 
 
