@@ -7,25 +7,35 @@ on:
     branches: [ main, master ]
 
 jobs:
-  lint-and-install:
+  lint-test-and-sonar:
     runs-on: ubuntu-latest
     
     steps:
     - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
     
     - name: Set up Python Environment
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'
     
-    - name: Install UV Package
+    - name: Install Dependencies
       run: |
         pip install uv
-    
-    - name: Install Project Dependencies
-      run: |
         make install
     
     - name: Run Linter
       run: |
         make lint
+        
+    - name: Run Tests with Coverage
+      run: |
+        make coverage
+        
+    - name: SonarQube Scan
+      uses: SonarSource/sonarqube-scan-action@v4
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
