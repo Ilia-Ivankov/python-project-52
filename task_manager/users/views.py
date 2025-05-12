@@ -44,7 +44,7 @@ class UserDeleteView(
     model = User
     success_url = reverse_lazy("users")
     text = _("Deleting user")
-    sucess_delete_message = _("User successfully deleted")
+    success_delete_message = _("User successfully deleted")
 
     def get_delete_warning(self):
         return (
