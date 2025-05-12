@@ -3,7 +3,7 @@ Test settings for Django tests
 """
 
 from pathlib import Path
-from task_manager.settings import *  # noqa: F403
+from task_manager.settings import *  # noqa: F403 F401
 
 # Define BASE_DIR similar to main settings
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -27,4 +27,4 @@ ROLLBAR = {
     'environment': 'test',
     'code_version': '1.0',
     'root': BASE_DIR,
-} 
+}
