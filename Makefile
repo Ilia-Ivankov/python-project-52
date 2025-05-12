@@ -20,7 +20,7 @@ test:
 	uv run python manage.py test task_manager.tests
 
 coverage:
-	python -m pytest --cov=task_manager --cov-report=xml --cov-report=term
+	uv run pytest --cov=task_manager --cov-report=xml --cov-report=term
 
 run:
 	uv run python manage.py runserver
