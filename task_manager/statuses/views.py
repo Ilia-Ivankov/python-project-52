@@ -21,6 +21,8 @@ class StatusesCreateView(CustomLoginRequiredMixin, ContextMixin, CreateView):
     success_url = reverse_lazy("statuses_index")
     form_class = StatusForm
     success_message = _("The status was created successfully")
+    text = _("Create status")
+    button = _("Create")
 
 
 class StatusesUpdateView(CustomLoginRequiredMixin, ContextMixin, UpdateView):
