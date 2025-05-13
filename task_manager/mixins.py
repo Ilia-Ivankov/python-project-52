@@ -60,17 +60,7 @@ class UserDeletePermissionMixin(UserOwnershipMixin):
             messages.error(self.request, self.permission_message)
         return redirect(self.success_url)
 
-
-class ContextDeleteMixin:
-    template_name = "general_delete_form.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["form_action"] = self.request.path
-        context["text"] = self.text
-        context["delete_warning"] = self.get_delete_warning()
-        return context
-
+class PostDeleteMixin:
     def post(self, request, *args, **kwargs):
         try:
             response = super().post(request, *args, **kwargs)
@@ -80,11 +70,24 @@ class ContextDeleteMixin:
             messages.error(request, e.args[0])
             return redirect(self.success_url)
 
+class ContextDeleteMixin(PostDeleteMixin):
+    template_name = "general_delete_form.html"
+    display_attribute = 'name'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form_action"] = self.request.path
+        context["text"] = self.text
+        context["delete_warning"] = self.get_delete_warning()
+        return context
+    
     def get_delete_warning(self):
+        obj = self.get_object()
+        display_value = getattr(obj, self.display_attribute, str(obj))
         return (
             _("Are you sure you want to delete")
             + " "
-            + self.get_object().name
+            + display_value
             + "?"
         )
 

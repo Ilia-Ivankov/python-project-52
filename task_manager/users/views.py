@@ -45,11 +45,4 @@ class UserDeleteView(
     success_url = reverse_lazy("users")
     text = _("Deleting user")
     success_delete_message = _("User successfully deleted")
-
-    def get_delete_warning(self):
-        return (
-            _("Are you sure you want to delete")
-            + " "
-            + self.get_object().username
-            + "?"
-        )
+    display_attribute = 'username'

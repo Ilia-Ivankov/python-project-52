@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-12 18:58+0300\n"
+"POT-Creation-Date: 2025-05-13 19:28+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -122,7 +122,7 @@ msgstr "У вас нет прав для изменения другого по�
 msgid "You do not have permission to delete this user."
 msgstr "У вас нет прав для изменения другого пользователя"
 
-#: task_manager/mixins.py:85 task_manager/users/views.py:51
+#: task_manager/mixins.py:88
 msgid "Are you sure you want to delete"
 msgstr "Вы уверены, что хотите удалить"
 
