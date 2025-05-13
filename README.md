@@ -3,7 +3,10 @@
 ### CI
 [![Continuous Integration](https://github.com/Ilia-Ivankov/python-project-52/actions/workflows/ci.yml/badge.svg)](https://github.com/Ilia-Ivankov/python-project-52/actions/workflows/ci.yml)
 ### Maintainability
-[![Maintainability](https://api.codeclimate.com/v1/badges/aa4c6d38df7a5dcdf29a/maintainability)](https://codeclimate.com/github/Ilia-Ivankov/python-project-52/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/aa4c6d38df7a5dcdf29a/maintainability)](https://codeclimate.com/github/Ilia-Ivankov/python-project-52/
+maintainability)
+### Test coverage
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Ilia-Ivankov_python-project-52&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Ilia-Ivankov_python-project-52)
 ### This project is deployed on render
 [![Render](https://render.com/images/render-logo-social-card.png)](https://python-project-52-2dgn.onrender.com)
 
